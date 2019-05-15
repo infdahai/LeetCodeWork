@@ -9,37 +9,33 @@
 class Solution {
 public:
     ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
-        int val_1=0,val_2=0;
-        int i = 1;
-        while(l1!=nullptr)
-        {
-            val_1 += i*l1->val;
-//            cout<<val_1<<endl;
-            i*=10;
-            l1 = l1->next;
-        }
-        i = 1;
-        while(l2!=nullptr)
-        {
-            val_2 += i*l2->val;
-    //        cout<<val_2 <<endl;
-            i*= 10;
-            l2 = l2->next;
-        }
-        int val_3 = val_1+val_2;
-        ListNode*res = new ListNode(val_3%10);
+        int addi = 0,v1=0,v2=0,v3=0;
+        ListNode* res = new ListNode(0);
         ListNode* a = res;
-        cout<<res<<endl;
-        cout<<a<<endl;
-        while(val_3>=10)
+        while(l1 || l2 || addi)
         {   
-            val_3 /= 10;
-            ListNode* ne = new ListNode(val_3%10);
-            cout<<val_3%10<<endl;
-            cout<<ne<<endl;
-            a->next = ne;
+            if(l1!=nullptr)
+            {
+                v1 = l1->val;
+                l1 = l1->next;
+            }else{
+                v1 = 0;
+            }
+            
+              if(l2!=nullptr)
+            {
+                v2 = l2->val;
+                l2 = l2->next;
+            }else{
+                v2 = 0;
+            }
+            
+            v3 = v2+v1+addi;
+            addi = v3/10;
+            v3 = v3 % 10;
+            a->next = new ListNode(v3);
             a = a->next;
-        }
-        return res;
+        } 
+        return  res->next;
     }
 };
